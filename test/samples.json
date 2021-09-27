@@ -1,0 +1,6 @@
+[{
+    "id": "filesizes/somefile",
+    "kind": "scalar",
+    "unit": "B",
+    "value": 20000
+}]

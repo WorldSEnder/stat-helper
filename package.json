@@ -1,0 +1,45 @@
+{
+  "name": "github-action-stat-helper",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "main": "npm run-script build && node dist/index.js",
+    "build": "tsc -p .",
+    "watch:tsc": "tsc -p . --watch --preserveWatchOutput",
+    "lint": "eslint '**/*.ts'"
+  },
+  "bin": {
+    "stat-helper-cli": "dist/cli.js",
+    "stat-helper-teardown": "dist/teardown.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worldsender/stat-helper.git"
+  },
+  "keywords": [
+    "github",
+    "action",
+    "benchmark",
+    "statistics"
+  ],
+  "author": "WorldSEnder <ga65guy@mytum.de>",
+  "bugs": {
+    "url": "https://github.com/worldsender/stat-helper/issues"
+  },
+  "homepage": "https://github.com/worldsender/stat-helper#readme",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.5.0",
+    "@actions/github": "^5.0.0",
+    "xpipe": "^1.0.5",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.10.1",
+    "@types/node-ipc": "^9.1.5",
+    "@types/yargs": "^17.0.3",
+    "typescript": "^4.4.3"
+  }
+}

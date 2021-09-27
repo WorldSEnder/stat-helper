@@ -1,0 +1,16 @@
+name: 'Stat Helper'
+author: 'WorldSEnder <ga65guy@mytum.de>'
+description: 'Track various statistics, such as benchmarks and bundle sizes of your repository'
+branding:
+  icon: 'fast-forward'
+  color: 'blue'
+
+inputs:
+  github-token:
+    description: 'GitHub API token to pull/push refs/notes/stat-helper'
+    required: false
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+  post: 'dist/teardown.js'
