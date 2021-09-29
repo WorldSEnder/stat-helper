@@ -6,7 +6,11 @@ export interface Integration {
     error(message: string): void;
     setFailed(message: string): void;
     exportVariable(env: string, value: string): void;
-    readonly tempDir: string;
+    readonly locations: {
+        readonly tempDir: string;
+        readonly daemon: string;
+        registerCli(): void;
+    };
 }
 
 let integration: Integration;
@@ -24,6 +28,6 @@ const {
     error,
     setFailed,
     exportVariable,
-    tempDir,
+    locations,
 } = integration;
-export { debug, info, error, setFailed, exportVariable, tempDir, };
+export { debug, info, error, setFailed, exportVariable, locations, };

@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "lib": ["es2019", "es2020.promise", "es2020.bigint", "es2020.string"],
     "module": "commonjs",
+    "target": "ES2019",
+
     "moduleResolution": "node",
-    "lib": ["esnext"],
     "preserveConstEnums": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -12,12 +14,11 @@
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "strict": true,
-    "target": "es2019",
     "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "removeComments": true,
-    "outDir": "dist",
+    "outDir": "build",
     "typeRoots": [
       "./node_modules/@types",
       "./types",

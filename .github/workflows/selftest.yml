@@ -1,4 +1,8 @@
-on: [push]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   simple-self-test:
@@ -9,4 +13,5 @@ jobs:
         uses: worldsender/stat-helper@v0.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
       - run: stat-helper-cli add --input test/samples.json

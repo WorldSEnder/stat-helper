@@ -16,5 +16,8 @@ export async function main() {
 }
 
 if (require.main === module) {
-    main().catch(e => core.setFailed(e.message))
+    main().catch(e => {
+        core.setFailed(e.message)
+        throw e;
+    });
 }

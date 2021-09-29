@@ -3,15 +3,19 @@
   "version": "0.0.0",
   "description": "",
   "private": true,
-  "main": "src/index.js",
+  "main": "build/src/index.js",
   "scripts": {
-    "main": "npm run-script build && node dist/src/index.js",
     "build": "tsc -p . && tsc-alias",
-    "watch:tsc": "tsc -p . --watch --preserveWatchOutput & tsc-alias -w",
-    "lint": "eslint '**/*.ts'"
+    "package:main": "ncc build --license licenses.txt -o dist/main",
+    "package:cli": "ncc build build/src/cli.js -o dist/cli",
+    "package:daemon": "ncc build build/src/daemon.js -o dist/daemon",
+    "package:teardown": "ncc build build/src/teardown.js -o dist/teardown",
+    "package:static": "cp action.yml LICENSE dist/",
+    "package": "npm run build && npm run package:main && npm run package:cli && npm run package:daemon && npm run package:teardown && npm run package:static",
+    "watch:tsc": "tsc -p . --watch --preserveWatchOutput & tsc-alias -w"
   },
   "bin": {
-    "stat-helper-cli": "dist/src/cli.js"
+    "stat-helper-cli": "build/src/cli.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +44,7 @@
     "@types/node": "^16.10.1",
     "@types/node-ipc": "^9.1.5",
     "@types/yargs": "^17.0.3",
+    "@vercel/ncc": "^0.31.1",
     "tsc-alias": "^1.3.9",
     "typescript": "^4.4.3"
   }

@@ -1,8 +1,7 @@
 #! /usr/bin/env node
 import * as core from './integration';
 import yargs, { Argv } from "yargs";
-import fs from 'fs'
-import fsp from 'fs/promises';
+import fs, { promises as fsp } from 'fs'
 import { stdin } from 'process';
 import { promisify } from 'util';
 
@@ -74,15 +73,15 @@ async function main() {
             core.error(`Daemon already running`);
             return;
         }
-        daemonMain();
+        await daemonMain();
     })
     .command('teardown', "Stop the daemon and print results", yargs => yargs, async _ => {
-        teardownMain();
+        await teardownMain();
     })
     .command('$0', "", yargs => yargs, _ => { YARGS.showHelp() })
     .help()
     .recommendCommands()
-    .showHelpOnFail(false)
+    .fail(false)
     .demandCommand(0, 1);
 
     await YARGS.parseAsync();
@@ -91,5 +90,8 @@ async function main() {
 }
 
 if (require.main === module) {
-    main().catch(e => core.setFailed(e.message))
+    main().catch(e => {
+        core.setFailed(e.message)
+        throw e;
+    });
 }
