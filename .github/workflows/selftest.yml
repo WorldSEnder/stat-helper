@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  simple-self-test:
+    runs-on: ubuntu-latest
+    name: A job to test it can measure itself
+    steps:
+      - name: Start the measurement daemon
+        uses: worldsender/stat-helper@v0.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: stat-helper-cli add --input test/samples.json
