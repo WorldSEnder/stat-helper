@@ -1,9 +1,9 @@
 #! /usr/bin/env node
-import * as core from '@actions/core';
+import * as core from './integration';
 
 import { connectEnv } from './client';
 
-async function main() {
+export async function main() {
     core.debug(`stat-helper teardown starting`);
 
     const [client, handle] = await connectEnv();
@@ -14,4 +14,7 @@ async function main() {
 
     core.debug(`stat-helper teardown done`);
 }
-main().catch(e => core.setFailed(e.message));
+
+if (require.main === module) {
+    main().catch(e => core.setFailed(e.message))
+}

@@ -1,4 +1,4 @@
-import * as core from '@actions/core'
+import * as core from '../integration'
 import net from 'net';
 import { promisify } from 'util';
 

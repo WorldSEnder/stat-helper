@@ -5,14 +5,13 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
-    "main": "npm run-script build && node dist/index.js",
-    "build": "tsc -p .",
-    "watch:tsc": "tsc -p . --watch --preserveWatchOutput",
+    "main": "npm run-script build && node dist/src/index.js",
+    "build": "tsc -p . && tsc-alias",
+    "watch:tsc": "tsc -p . --watch --preserveWatchOutput & tsc-alias -w",
     "lint": "eslint '**/*.ts'"
   },
   "bin": {
-    "stat-helper-cli": "dist/cli.js",
-    "stat-helper-teardown": "dist/teardown.js"
+    "stat-helper-cli": "dist/src/cli.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +32,7 @@
   "dependencies": {
     "@actions/core": "^1.5.0",
     "@actions/github": "^5.0.0",
+    "@folder/xdg": "^3.1.2",
     "xpipe": "^1.0.5",
     "yargs": "^17.2.1"
   },
@@ -40,6 +40,7 @@
     "@types/node": "^16.10.1",
     "@types/node-ipc": "^9.1.5",
     "@types/yargs": "^17.0.3",
+    "tsc-alias": "^1.3.9",
     "typescript": "^4.4.3"
   }
 }

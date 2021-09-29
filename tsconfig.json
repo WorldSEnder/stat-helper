@@ -18,6 +18,14 @@
     "resolveJsonModule": true,
     "removeComments": true,
     "outDir": "dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types",
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "not-a-log": ["vendor/not-a-log/"],
+    },
   },
   "include": ["src/**/*.ts"]
 }

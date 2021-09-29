@@ -1,11 +1,10 @@
-// import * as core from '@actions/core';
 import net from 'net';
 import { promisify } from 'util';
 
 import { ClientHandle, connectServer, Remote } from '../rpc/impl';
 import { compile } from '../rpc/validate';
 import type { DaemonService } from '../server';
-import { ENV_SOCKET_PATH } from '../constant';
+import { ENV_SOCKET_PATH } from '../constants.json';
 
 export type DaemonClient = Remote<DaemonService>;
 
@@ -28,7 +27,10 @@ export async function connect(socketPath: string): Promise<[DaemonClient, Client
             } as const)
         }
     });
-    await promisify(f => socket.on('connect', f))();
+    await promisify(res => {
+        socket.on('ready', () => res(undefined, undefined))
+        socket.on('error', err => res(err, undefined))
+    })();
     return connection;
 }
 

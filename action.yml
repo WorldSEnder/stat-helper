@@ -12,5 +12,5 @@ inputs:
 
 runs:
   using: 'node12'
-  main: 'dist/index.js'
-  post: 'dist/teardown.js'
+  main: 'dist/src/index.js'
+  post: 'dist/src/teardown.js'

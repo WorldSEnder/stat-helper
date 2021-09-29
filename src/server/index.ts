@@ -1,8 +1,8 @@
-import * as core from '@actions/core';
+import * as core from '../integration';
 import net from 'net';
 import { promisify } from 'util';
+import logger from 'not-a-log';
 
-import { ENV_SOCKET_PATH, SERVER_SOCKET_PATH } from '../constant';
 import { Measurement, Datapoint, datapointValidator, formatMeasurement } from '../measurement';
 import { bindService, ServerHandle } from '../rpc/impl'
 import { compile } from '../rpc/validate';
@@ -43,12 +43,12 @@ async function listen(serverSocket: string): Promise<ServerHandle> {
                 kind: 'tuple', types: []
             } as const),
             async run() {
-                let report = "";
-                for (const k in state) {
-                    const m = state[k];
-                    report += `${k}=${formatMeasurement(m)}\n`;
+                core.debug(`Running report`);
+                let report: any = {};
+                for (const [k, m] of Object.entries(state)) {
+                    report[k] = formatMeasurement(m);
                 }
-                return report;
+                return logger.table(report)
             }
         },
         shutdown: {
@@ -66,8 +66,7 @@ async function listen(serverSocket: string): Promise<ServerHandle> {
     return handle;
 }
 
-export async function listenEnv(): Promise<ServerHandle> {
-    const server = await listen(SERVER_SOCKET_PATH);
-    core.exportVariable(ENV_SOCKET_PATH, SERVER_SOCKET_PATH);
+export async function listenEnv(serverSocket: string): Promise<ServerHandle> {
+    const server = await listen(serverSocket);
     return server;
 }
